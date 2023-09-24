@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Twitchat Mobile View</title><!-- Keywords --><meta name="keywords" content="Extension Chromium Twitch Mobile View Browser Desktop Chrome Opera Brave Edge"><!-- Google Meta Tags --><link rel="canonical" href="https://hardysd.github.io/TwitchatMobileView/"><meta name="robots" content="index"><!-- Meta Tags --><meta name="title" content="Twitchat Mobile View Chromium Extension"><meta name="description" content="Chromium extension that places the Twitch Chat below the Video Stream Player when the Twitch window width is thin."><!-- Open Graph / Facebook / Linkedin / Slack --><meta property="og:type" content="website"><meta property="og:url" content="https://hardysd.github.io/TwitchatMobileView/"><meta property="og:title" content="Twitchat Mobile View Chromium Extension"><meta property="og:description" content="Chromium extension that places the Twitch Chat below the Video Stream Player when the Twitch window width is thin."><meta property="og:image" content="https://res.cloudinary.com/dhsd/image/upload/v1695498233/TwitchatMobileView/imagen_2_c0scfh.webp"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://hardysd.github.io/TwitchatMobileView/"><meta property="twitter:title" content="Twitchat Mobile View Chromium Extension"><meta property="twitter:description" content="Chromium extension that places the Twitch Chat below the Video Stream Player when the Twitch window width is thin."><meta property="twitter:image" content="https://res.cloudinary.com/dhsd/image/upload/v1695498233/TwitchatMobileView/imagen_2_c0scfh.webp"><link rel="shortcut icon" href="TwitchatMobileViewFavicon.ico" type="image/x-icon"><style>nav{display:flex;border-bottom:1px solid #ff00b3;padding:6px 0}.logo,.urls{flex:1}.logo{text-align:start}.logo a{display:inline-block;background-image:url(https://res.cloudinary.com/dhsd/image/upload/v1695514403/TwitchatMobileView/TwitchatMobileView_Logo_aleplp.png);background-position:center;background-size:cover;width:40px;height:40px;border-radius:6px;box-shadow:0 0 10px #0ff}.urls{display:flex;justify-content:end;align-items:center;column-gap:2em}.urls a{text-decoration:none;color:#ffc963}.urls a:hover{color:#ff0}:root{color-scheme:dark;color:#e6e5e5}body{display:flex;justify-content:center}.bounds{width:652px;text-align:center;font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;text-wrap:balance}.highlight{color:#0ff}img{border-radius:14px;overflow:hidden;box-shadow:0 0 10px #88d2e4}@media (max-width: 500px){img{aspect-ratio:16 / 9;width:90%;height:auto}}@media (max-width: 650px){.bounds{padding:0 10px}}
+</style><script type="module">class i extends HTMLElement{count=0;images=[{html:'<span class="highlight">Mobile View</span> in your Desktop Browser when the Twitch window width is thin. (<span class="highlight">&#60;= 919px</span>)',url:"https://res.cloudinary.com/dhsd/image/upload/v1695496561/TwitchatMobileView/imagen_1_wwjj5a.webp",alt:"Showing the application working"},{html:"Forget about using pop-up chat",url:"https://res.cloudinary.com/dhsd/image/upload/v1695498233/TwitchatMobileView/imagen_2_c0scfh.webp",alt:"Forget about using pop-up chat"},{html:"Do another activities while you see a stream Twitch",url:"https://res.cloudinary.com/dhsd/image/upload/v1695496561/TwitchatMobileView/imagen_3_qpazmp.webp",alt:"Do another activities while you see a stream Twitch"},{html:"Pass the mouse over the streamer avatar to see the stream information (title and tags)",url:"https://res.cloudinary.com/dhsd/image/upload/v1695504968/TwitchatMobileView/imagen_4_eheokr.webp",alt:"See the stream information (title and tags)"},{html:"See if a channel is verified",url:"https://res.cloudinary.com/dhsd/image/upload/v1695496561/TwitchatMobileView/imagen_5_hp06ra.webp",alt:"See if a channel is verified"}];constructor(){super(),this.attachShadow({mode:"open"})}connectedCallback(){this.render(),this.reactivity()}static get styles(){return`
+
+            :host {
+                position: relative;
+            }
+            
+            .container {
+                display: flex;
+                justify-content: center;
+            }
+
+            p {
+                color: #ff0;
+                margin: 32px 0px;
+            }
+
+            .slider {
+                display: flex;
+                justify-content: center;
+                border-radius: 10px;
+                overflow: hidden;
+                position: absolute;
+
+                box-shadow: 0px 0px 30px 0px #7a00ff;
+                animation-name: sizingShadow;
+                animation-duration: 1s;
+                animation-iteration-count: infinite;
+                animation-direction: alternate;
+            }
+
+            @keyframes sizingShadow {
+                to {box-shadow: 0px 0px 40px 0px #0ff;}
+            }
+
+            .highlight {
+                color: #0ff;
+            }
+
+            @media (max-width: 1106px) {
+
+                img {
+                    aspect-ratio: 16 / 9;
+                    width: calc(100vw - 82px);
+                    height: auto;
+                }
+            }
+
+            `}render(){this.shadowRoot.innerHTML=`
+                <style>${i.styles}</style>
+                <p class="inner-html">${this.images[this.count].html}</p>
+                <div class="container">
+                    <div class="slider">
+                        <button class="btn-left">&#10918;</button>
+                        <img width="1024px" height="576px" src="${this.images[this.count].url}" alt="${this.images[this.count].alt}">
+                        <button class="btn-right">&#10919;</button>                    
+                    </div>
+                </div>
+            `}reactivity(){const s=this.shadowRoot.querySelector(".inner-html"),o=this.shadowRoot.querySelector(".btn-left"),n=this.shadowRoot.querySelector(".btn-right"),e=this.shadowRoot.querySelector("img"),a=t=>{s.innerHTML=this.images[t].html,e.src=this.images[t].url,e.alt=this.images[t].alt};o.addEventListener("click",t=>{this.count!==0&&(this.count--,a(this.count))}),n.addEventListener("click",t=>{this.count!==this.images.length-1&&(this.count++,a(this.count))})}}customElements.define("slider-img",i);
+</script></head><body><div class="bounds"><nav><div class="logo"><a href="/"></a></div><div class="urls"><a href="/about">about</a><a href="/bugs">bugs</a></div></nav><h1>Twichat Mobile View</h1><slider-img></slider-img><div></div></div></body></html>
